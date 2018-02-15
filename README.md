@@ -1,8 +1,5 @@
 # Django Accounts
 
-
-## Stop rewriting User views and templates!
-
 A simple application for custom authentication in django, 
 Enable your users to log in easily, log out, register and manage your profile.
 
