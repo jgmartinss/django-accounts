@@ -79,8 +79,6 @@ Enable your users to log in easily, log out, register and manage your profile.
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     ```
 
-    Configuration is described completely below.
-
 1.  Run the app and check it out:
 
     ```shell
