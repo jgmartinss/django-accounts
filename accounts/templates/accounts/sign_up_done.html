@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} {{ block.super }} - Sign Up Done {% endblock %}
+{% block content %}
+
+<div>
+  <ul>
+    <li>Successfully signed up. Do you want to log in?</li>
+    <li><a href="{% url 'sign-in' %}"></a></li>
+  </ul>
+</div>
+
+{% endblock content %}

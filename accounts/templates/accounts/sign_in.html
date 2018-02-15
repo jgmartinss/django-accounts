@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} {{ block.super }} - Sign In {% endblock %}
+{% block content %}
+
+<form method="POST" action="{% url 'sign-in' %}">{%  csrf_token %}
+	<table>
+		<tr>
+			<td>{{ form.username.label_tag }}</td>
+			<td>{{ form.username }}</td>
+		</tr>
+		<tr>
+			<td>{{ form.password.label_tag }}</td>
+			<td>{{ form.password }}</td>
+		</tr>
+	</table>
+	<input type="submit" value="Sign in" />
+	<a href="{% url 'index' %}">To back</a>
+</form>
+
+{% endblock content %}

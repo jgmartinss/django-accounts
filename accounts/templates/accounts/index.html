@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div>
+	<nav class="navbar">
+		<ul class="navbar-list">
+			{% if user.is_authenticated %}
+			<li class="navbar-item">
+				{% if user.avatar %}
+					<img src="{{ user.avatar.url }}" width="40" height="40">
+				{% else %}
+					<img src="{% static 'img/avatar.jpg' %}" width="40" height="40"> 
+				{% endif %} <strong>{{user.nickname}}</strong>
+			</li>
+			<li><strong>{{user.email}}</strong></li>
+			<li><strong>{{user.first_name}} {{user.last_name}}</strong></li>
+			<li class="navbar-item"><a href="{% url 'logout' %}" class="navbar-link">Logout</a></li>
+			{% else %}
+			<li class="navbar-item"><a href="{% url 'sign-in' %}" class="navbar-link">Sign in</a></li>
+			<li class="navbar-item"><a href="{% url 'sign-up' %}" class="navbar-link">Sign up</a></li>
+			{% endif %}
+		</ul>
+	</nav>
+</div>
+
+{% endblock content %}
