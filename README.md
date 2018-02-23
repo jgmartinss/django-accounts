@@ -75,6 +75,9 @@ Enable your users to log in easily, log out, register and manage your profile.
         ('django.contrib.auth.backends.ModelBackend'),
     )
 
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     ```
