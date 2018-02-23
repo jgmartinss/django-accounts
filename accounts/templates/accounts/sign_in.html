@@ -3,19 +3,52 @@
 {% block title %} {{ block.super }} - Sign In {% endblock %}
 {% block content %}
 
-<form method="POST" action="{% url 'sign-in' %}">{%  csrf_token %}
-	<table>
-		<tr>
-			<td>{{ form.username.label_tag }}</td>
-			<td>{{ form.username }}</td>
-		</tr>
-		<tr>
-			<td>{{ form.password.label_tag }}</td>
-			<td>{{ form.password }}</td>
-		</tr>
-	</table>
-	<input type="submit" value="Sign in" />
-	<a href="{% url 'index' %}">To back</a>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<section>      
+				<h1 class="entry-title"><span>Sign Ip</span></h1><hr>
+				<form method="POST" action="{% url 'sign-in' %}" class="form-horizontal" name="signin" id="signin" enctype="multipart/form-data" >
+				{%  csrf_token %}      
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ form.username.label_tag }} <span class="text-danger">*</span></label>
+						<div class="col-md-8 col-sm-9">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+								{{ form.username }}
+							</div> 
+						</div>
+					</div>
+					<!-- END -->
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ form.password.label_tag }}<span class="text-danger">*</span></label>
+						<div class="col-md-5 col-sm-8">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								{{ form.password }}
+					 		</div>   
+						</div>
+					</div>
+					<!-- END -->
+					<div class="form-group">
+						<div class="col-xs-offset-3 col-md-8 col-sm-9">
+							<span class="text-muted">
+								{% for error in form.non_field_errors %}
+									<p class='alert alert-danger form-error'>{{ error }}</p>
+								{% endfor %}
+							</span> 
+						</div>
+					</div>
+					<!-- END -->
+					<div class="form-group">
+						<div class="col-xs-offset-3 col-xs-10">
+							<input name="Submit" type="submit" value="Sign Ip" class="btn btn-primary">
+							<a href="{% url 'index' %}">To back</a>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 {% endblock content %}

@@ -2,25 +2,41 @@
 {% load staticfiles %}
 {% block content %}
 
-<div>
-	<nav class="navbar">
-		<ul class="navbar-list">
-			{% if user.is_authenticated %}
-			<li class="navbar-item">
-				{% if user.avatar %}
-					<img src="{{ user.avatar.url }}" width="40" height="40">
-				{% else %}
-					<img src="{% static 'img/avatar.jpg' %}" width="40" height="40"> 
-				{% endif %} <strong>{{user.nickname}}</strong>
-			</li>
-			<li><strong>{{user.email}}</strong></li>
-			<li><strong>{{user.first_name}} {{user.last_name}}</strong></li>
-			<li class="navbar-item"><a href="{% url 'logout' %}" class="navbar-link">Logout</a></li>
-			{% else %}
-			<li class="navbar-item"><a href="{% url 'sign-in' %}" class="navbar-link">Sign in</a></li>
-			<li class="navbar-item"><a href="{% url 'sign-up' %}" class="navbar-link">Sign up</a></li>
-			{% endif %}
-		</ul>
+<div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{% url 'index' %}">Django Accounts</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+								{% if user.avatar %}
+									<img src="{{ user.avatar.url }}" class="img-circle special-img" width="30" height="30">
+								{% else %}
+									<img src="{% static 'img/avatar.jpg' %}" class="img-circle special-img" width="30" height="30"> 
+								{% endif %}
+								{{user.email}} <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>Logout</a></li>
+							</ul>
+						</li> 
+					{% else %}
+						<li><a href="{% url 'sign-in' %}">Sign in</a></li>
+						<li><a href="{% url 'sign-up' %}">Sign up</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
 	</nav>
 </div>
 
