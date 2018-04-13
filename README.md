@@ -67,7 +67,7 @@ Enable your users to log in easily, log out, register and manage your profile.
     ```python
     # settings.py
 
-    AUTH_USER_MODEL = 'accounts.MyUser'
+    AUTH_USER_MODEL = 'accounts.User'
 
     AUTHENTICATION_BACKENDS = (
         ('django.contrib.auth.backends.ModelBackend'),
