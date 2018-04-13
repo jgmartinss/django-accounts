@@ -1,11 +1,11 @@
 from django.contrib.auth.models import BaseUserManager
 
 
-class MyUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
 
     use_in_migrations = True
 
-    def create_user(self, email, nickname, password, **kwargs):
+    def create_user(self, email, username, password, **kwargs):
 
         email = self.normalize_email(email)
         #is_staff = kwargs.pop('is_staff', False)
@@ -13,7 +13,7 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=email,
-            nickname=nickname,
+            username=username,
             is_active=True,
             # is_staff=is_staff,
             is_superuser=is_superuser,
@@ -24,9 +24,9 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, nickname, password, **kwargs):
+    def create_superuser(self, email, username, password, **kwargs):
         super_user = self.create_user(
-            email=email, nickname=nickname, password=password
+            email=email, username=username, password=password
         )
         super_user.is_admin = True
         super_user.is_superuser = True

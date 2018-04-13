@@ -11,8 +11,8 @@
 				<form method="POST" action="{% url 'sign-up' %}" class="form-horizontal" name="signup" id="signup" enctype="multipart/form-data" >
 				{%  csrf_token %}      
 					<div class="form-group">
-						<label class="control-label col-sm-3">{{ form.nickname.label_tag }}<span class="text-danger">*</span></label>
-						<div class="col-md-8 col-sm-9">{{ form.nickname }}</div>
+						<label class="control-label col-sm-3">{{ form.username.label_tag }}<span class="text-danger">*</span></label>
+						<div class="col-md-8 col-sm-9">{{ form.username }}</div>
 					</div>
 					<!-- END -->
 					<div class="form-group">
@@ -23,6 +23,11 @@
 					<div class="form-group">
 						<label class="control-label col-sm-3">{{ form.last_name.label_tag }}<span class="text-danger">*</span></label>
 						<div class="col-md-8 col-sm-9">{{ form.last_name }}</div>
+					</div>
+					<!-- END -->
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ form.gender.label_tag }}<span class="text-danger">*</span></label>
+						<div class="col-md-8 col-sm-9">{{ form.gender }}</div>
 					</div>
 					<!-- END -->
 					<div class="form-group">
@@ -52,15 +57,6 @@
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 								{{ form.password2 }}
 							</div>  
-						</div>
-					</div>
-					<!-- END -->
-					<div class="form-group">
-						<label class="control-label col-sm-3">{{ form.avatar.label_tag }}<br><small>(optional)</small></label>
-						<div class="col-md-5 col-sm-8">
-							<div class="input-group"> <span class="input-group-addon" id="file_upload"><i class="glyphicon glyphicon-upload"></i></span>
-								<input type="file" name="avatar" id="id_avatar" class="form-control upload" placeholder="" aria-describedby="file_upload">
-							</div>
 						</div>
 					</div>
 					<!-- END -->

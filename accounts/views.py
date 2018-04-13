@@ -21,7 +21,7 @@ class IndexView(generic.TemplateView):
 
 
 class SignUpView(generic.CreateView):
-    model = models.MyUser
+    model = models.User
     form_class = forms.RegisterUserForm
     template_name = 'accounts/sign_up.html'
     success_url = reverse_lazy('sign-up-done')
@@ -42,7 +42,7 @@ class SignInView(generic.FormView):
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         request.session.set_test_cookie()
-
+        
         return super(SignInView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

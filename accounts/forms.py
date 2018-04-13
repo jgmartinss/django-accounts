@@ -27,22 +27,13 @@ class RegisterUserForm(UserCreationForm):
         )
     )
 
-    nickname = forms.RegexField(
-        label="Nickname",
-
-        max_length=50,
-
-        regex=r'^[\w.@+-]+$',
-
-        error_messages={
-            'invalid': "This value may contain only letters, numbers and "
-            "@/./+/-/_ characters."
-        },
+    username = forms.CharField(
+        label="Username",
 
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'nickname',
+                'placeholder': 'username',
                 'required': 'true',
             }
         )
@@ -96,22 +87,24 @@ class RegisterUserForm(UserCreationForm):
         )
     )
 
-    avatar = forms.ImageField(
-        label='User pic',
+    gender = forms.ChoiceField(
+        label='Gender',
 
-        widget=forms.FileInput(
+        choices=models.GENDER_CHOICES,
+
+        widget=forms.RadioSelect(
             attrs={
-                'class': 'form-control-file'
+                'class': 'checkbox-inline'
             }
         )
     )
 
     class Meta:
-        model = models.MyUser
+        model = models.User
 
         fields = [
-            'email', 'nickname', 'first_name', 'last_name',
-            'avatar', 'password1', 'password2'
+            'username', 'first_name', 'last_name', 'gender',
+            'email', 'password1', 'password2'
         ]
 
         def clean_password(self):
@@ -152,18 +145,3 @@ class LoginUserForm(AuthenticationForm):
             'invalid': _('Please enter your password valid')
         },
     )
-
-
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = models.MyUser
-
-        fields = (
-            'email', 'password', 'first_name',
-            'last_name', 'is_active', 'is_admin'
-        )
-
-    def clean_password(self):
-        return self.initial["password"]

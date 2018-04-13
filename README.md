@@ -14,8 +14,6 @@ Enable your users to log in easily, log out, register and manage your profile.
 
 ## Features to be added
 
-[ ] Login with Google or Facebook
-
 [ ] Email registration confirmation link
 
 [ ] Password reset
@@ -55,10 +53,10 @@ Enable your users to log in easily, log out, register and manage your profile.
         nickname = models.CharField(_('Nickname'), max_length=50, unique=True)
         first_name = models.CharField(_('Firt Name'), max_length=255)
         last_name = models.CharField(_('Last Name'), max_length=255)
-        avatar = models.ImageField(
-            _('Avatar'), null=True, blank=True, upload_to='image/avatar/'
-        )
+        gender = models.IntegerField(
+            _('Gender'), choices=GENDER_CHOICES, blank=True, null=True)
         date_joined = models.DateTimeField(auto_now_add=True)
+        updated_at = models.DateTimeField(auto_now=True)
         is_active = models.BooleanField(default=True)
         is_staff = models.BooleanField(default=False)
         is_admin = models.BooleanField(default=False)

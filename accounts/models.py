@@ -1,34 +1,41 @@
 import uuid
 
 from django.db import models
-
 from django.utils.translation import gettext_lazy as _
-
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from . import managers
 
 
-class MyUser(AbstractBaseUser,  PermissionsMixin):
+GENDER_CHOICES = (
+    (1, _('Male')),
+    (2, _('Female')),
+)
+
+
+class User(AbstractBaseUser,  PermissionsMixin):
     email = models.EmailField(_('Email'), max_length=255, unique=True)
-    nickname = models.CharField(_('Nickname'), max_length=50, unique=True)
+    username = models.CharField(_('Username'), max_length=120, unique=True)
     first_name = models.CharField(_('Firt Name'), max_length=255)
     last_name = models.CharField(_('Last Name'), max_length=255)
-    avatar = models.ImageField(
-        _('Avatar'), null=True, blank=True, upload_to='image/avatar/'
-    )
+    gender = models.IntegerField(
+        _('Gender'), choices=GENDER_CHOICES, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
-    objects = managers.MyUserManager()
+    objects = managers.UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nickname']
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         app_label = 'accounts'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+        db_tablespace = 'tb_user'
 
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
@@ -46,7 +53,7 @@ class MyUser(AbstractBaseUser,  PermissionsMixin):
 
     @property
     def get_nickname(self):
-        return self.nickname
+        return self.username
 
     @property
     def is_staff(self):
@@ -59,4 +66,4 @@ class MyUser(AbstractBaseUser,  PermissionsMixin):
     def save(self, *args, **kwargs):
         if not self.password:
             self.password = str(uuid.uuid4()).replace('-', '')
-        super(MyUser, self).save(*args, **kwargs)
+        super(User, self).save(*args, **kwargs)
