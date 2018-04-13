@@ -43,14 +43,14 @@ Enable your users to log in easily, log out, register and manage your profile.
     )
     ```
 
-1.  Create your or edit MyUser template if desired:
+1.  Create your or edit User template if desired:
 
     ```python
     # models.py
 
-    class MyUser(AbstractBaseUser,  PermissionsMixin):
+    class User(AbstractBaseUser,  PermissionsMixin):
         email = models.EmailField(_('Email'), max_length=255, unique=True)
-        nickname = models.CharField(_('Nickname'), max_length=50, unique=True)
+        username = models.CharField(_('Username'), max_length=120, unique=True)
         first_name = models.CharField(_('Firt Name'), max_length=255)
         last_name = models.CharField(_('Last Name'), max_length=255)
         gender = models.IntegerField(
