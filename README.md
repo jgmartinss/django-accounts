@@ -1,10 +1,9 @@
-# Django Accounts
+## Django Accounts CBV
 
-A simple application for custom authentication in django, 
-Enable your users to log in easily, log out, register and manage your profile.
+A simple django authentication app using cbv, 
 
 
-## Features already added
+### Features already added
 
 [x] Configure with django settings
 
@@ -12,16 +11,22 @@ Enable your users to log in easily, log out, register and manage your profile.
 
 [x] Register, Login and Logout
 
-## Features to be added
+### Features to be added
 
 [ ] Email registration confirmation link
 
 [ ] Password reset
 
 
-## Start using django-accounts
+### Start using django-accounts
 
-1.  Add `accounts` to `INSTALLED_APPS` in settings file:
+1.  Install app in project:
+
+    ```sh
+    pip install git+https://github.com/jgmartinss/django-accounts-cbv
+    ```
+
+2.  Add `accounts` to `INSTALLED_APPS` in settings file:
 
     ```python
     # settings.py
@@ -32,37 +37,44 @@ Enable your users to log in easily, log out, register and manage your profile.
     )
     ```
 
-1.  Add these lines to your URL configuration, urls.py:
+3.  Add these lines to your URL configuration, urls.py:
 
     ```python
     # urls.py
 
     urlpatterns = (
         # ...
-        path('', include('accounts.urls')),
+        path('accounts/', include('accounts.urls')),
     )
     ```
 
-1.  Create your or edit User template if desired:
+4.  Create your or edit User template if desired:
 
     ```python
     # models.py
 
     class User(AbstractBaseUser,  PermissionsMixin):
         email = models.EmailField(_('Email'), max_length=255, unique=True)
-        username = models.CharField(_('Username'), max_length=120, unique=True)
+        nickname = models.CharField(_('Nickname'), max_length=120, unique=True)
         first_name = models.CharField(_('Firt Name'), max_length=255)
         last_name = models.CharField(_('Last Name'), max_length=255)
-        gender = models.IntegerField(
-            _('Gender'), choices=GENDER_CHOICES, blank=True, null=True)
-        date_joined = models.DateTimeField(auto_now_add=True)
+        created_at = models.DateTimeField(auto_now_add=True)
         updated_at = models.DateTimeField(auto_now=True)
         is_active = models.BooleanField(default=True)
         is_staff = models.BooleanField(default=False)
         is_admin = models.BooleanField(default=False)
     ```
 
-1.  Configure django-accounts in your settings:
+5.  Add URL path in success_url in LoginView:
+
+    ```python
+    # models.py
+
+    class LoginView(FormView):
+        success_url = reverse_lazy('EXEMPLE:EXEMPLE')
+    ```
+
+6.  Configure django-accounts-cbv in your settings:
 
     ```python
     # settings.py
@@ -72,15 +84,9 @@ Enable your users to log in easily, log out, register and manage your profile.
     AUTHENTICATION_BACKENDS = (
         ('django.contrib.auth.backends.ModelBackend'),
     )
-
-    STATIC_URL = '/static/'
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     ```
 
-1.  Run the app and check it out:
+7.  Run the app and check it out:
 
     ```shell
     $ python manage.py makemigrations accounts

@@ -7,20 +7,12 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from . import managers
 
 
-GENDER_CHOICES = (
-    (1, _('Male')),
-    (2, _('Female')),
-)
-
-
-class User(AbstractBaseUser,  PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('Email'), max_length=255, unique=True)
-    username = models.CharField(_('Username'), max_length=120, unique=True)
+    nickname = models.CharField(_('Nickname'), max_length=120, unique=True)
     first_name = models.CharField(_('Firt Name'), max_length=255)
     last_name = models.CharField(_('Last Name'), max_length=255)
-    gender = models.IntegerField(
-        _('Gender'), choices=GENDER_CHOICES, blank=True, null=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -29,13 +21,13 @@ class User(AbstractBaseUser,  PermissionsMixin):
     objects = managers.UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['nickname']
 
     class Meta:
         app_label = 'accounts'
         verbose_name = _('User')
         verbose_name_plural = _('Users')
-        db_tablespace = 'tb_user'
+        db_table = 'tb_accounts_user'
 
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
@@ -53,7 +45,7 @@ class User(AbstractBaseUser,  PermissionsMixin):
 
     @property
     def get_nickname(self):
-        return self.username
+        return self.nickname
 
     @property
     def is_staff(self):

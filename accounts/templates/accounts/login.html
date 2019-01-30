@@ -1,0 +1,16 @@
+{% extends 'accounts/_base.html' %}
+{% load static %}
+{% block title %} {{ block.super }} - Sigin in {% endblock %}
+{% block content %}
+
+<div>
+    <form method="POST" action="{% url 'accounts:login' %}">
+        <h1>Sigin in</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sigin in</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
+
+{% endblock content %}

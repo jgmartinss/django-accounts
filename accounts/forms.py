@@ -8,7 +8,6 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
     UsernameField,
-    ReadOnlyPasswordHashField
 )
 
 from . import models
@@ -16,132 +15,97 @@ from . import models
 
 class RegisterUserForm(UserCreationForm):
     email = forms.CharField(
-        label='Email',
-
+        label=_('Email'),
         widget=forms.EmailInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('email'),
-                'required': True
-            }
-        )
+            attrs={"class": 'form-control', 'placeholder': _('Email'), 'required': True}
+        ),
     )
 
-    username = forms.CharField(
-        label="Username",
-
+    nickname = forms.RegexField(
+        label='Nickname',
+        max_length=50,
+        regex=r'^[\w.@+-]+$',
+        help_text=_(
+            'Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only.'
+        ),
+        error_messages={
+            'invalid': _(
+                'This value may contain only letters, numbers and @/./+/-/_ characters.'
+            )
+        },
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'username',
+                'placeholder': 'nickname',
                 'required': 'true',
             }
-        )
-    )
-
-    first_name = forms.CharField(
-        label='First Name',
-
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('first name'),
-                'required': True
-            }
-        )
-    )
-
-    last_name = forms.CharField(
-        label='Last Name',
-
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('last name'),
-                'required': True
-            }
-        )
+        ),
     )
 
     password1 = forms.CharField(
-        label='Password',
-
+        label=_('Password'),
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': _('password'),
-                'required': True
+                'required': True,
             }
-        )
+        ),
     )
 
     password2 = forms.CharField(
-        label='Password confirmation',
-
+        label=_('Password confirmation'),
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': _('password confirmation'),
-                'required': True
+                'required': True,
             }
-        )
-    )
-
-    gender = forms.ChoiceField(
-        label='Gender',
-
-        choices=models.GENDER_CHOICES,
-
-        widget=forms.RadioSelect(
-            attrs={
-                'class': 'checkbox-inline'
-            }
-        )
+        ),
     )
 
     class Meta:
         model = models.User
 
         fields = [
-            'username', 'first_name', 'last_name', 'gender',
-            'email', 'password1', 'password2'
+            'email',
+            'nickname',
+            'first_name',
+            'last_name',
+            'password1',
+            'password2',
         ]
 
         def clean_password(self):
             cleaned_data = self.cleaned_data
             if cleaned_data['password2'] != cleaned_data['password']:
-                raise ValidationError('Password dont match')
+                raise ValidationError(_('Password dont match'))
             return cleaned_data['password2']
 
 
 class LoginUserForm(AuthenticationForm):
     username = UsernameField(
-        label='Email',
-
+        label=_('Email'),
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'autofocus': True,
-                'placeholder': _('email')
+                'placeholder': _('email'),
             }
         ),
         error_messages={
             'required': _('Please enter your email'),
-            'invalid': _('Please enter your email valid')
+            'invalid': _('Please enter your email valid'),
         },
     )
 
     password = forms.CharField(
-        label='Password',
-
+        label=_('Password'),
         widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('password')
-            }
+            attrs={'class': 'form-control', 'placeholder': _('password')}
         ),
         error_messages={
             'required': _('Please enter your password'),
-            'invalid': _('Please enter your password valid')
+            'invalid': _('Please enter your password valid'),
         },
     )
