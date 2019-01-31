@@ -1,6 +1,6 @@
 ## Django Accounts CBV
 
-A simple django authentication app using cbv, 
+A simple django authentication app using class-based-views. 
 
 
 ### Features already added
@@ -68,10 +68,10 @@ A simple django authentication app using cbv,
 5.  Add URL path in success_url in LoginView:
 
     ```python
-    # models.py
+    # views.py
 
     class LoginView(FormView):
-        success_url = reverse_lazy('EXEMPLE:EXEMPLE')
+        success_url = reverse_lazy('EXAMPLE:EXAMPLE')
     ```
 
 6.  Configure django-accounts-cbv in your settings:
