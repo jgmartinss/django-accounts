@@ -21,16 +21,16 @@ from django.contrib.auth import (
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import RedirectView, FormView, TemplateView, CreateView
+from django.views.generic import RedirectView, FormView
 
 from . import forms
 
 
 class RegisterView(SuccessMessageMixin, FormView):
     form_class = forms.RegisterUserForm
-    template_name = 'register.html'
+    template_name = 'accounts/register.html'
     success_message = _("@%(nickname)s, Account created successfully.")
-    success_url = reverse_lazy('core:login')
+    success_url = reverse_lazy('accounts:login')
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
@@ -55,7 +55,7 @@ class RegisterView(SuccessMessageMixin, FormView):
 
 class LoginView(FormView):
     form_class = forms.LoginUserForm
-    template_name = 'login.html'
+    template_name = 'accounts/login.html'
     redirect_field_name = REDIRECT_FIELD_NAME
     success_url = reverse_lazy('')
 
