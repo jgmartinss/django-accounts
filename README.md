@@ -65,13 +65,17 @@ A simple django authentication app using class-based-views.
         is_admin = models.BooleanField(default=False)
     ```
 
-5.  Add URL path in success_url in LoginView:
+5.  Add URL path in LoginView and LogoutView:
 
     ```python
     # views.py
 
     class LoginView(FormView):
         success_url = reverse_lazy('EXAMPLE:EXAMPLE')
+
+
+    class LogoutView(LoginRequiredMixin, RedirectView):
+        url = '/EXAMPLE/EXAMPLE/'
     ```
 
 6.  Configure django-accounts-cbv in your settings:

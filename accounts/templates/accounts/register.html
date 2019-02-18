@@ -1,16 +1,14 @@
-{% extends 'accounts/_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% block title %} {{ block.super }} - Sigin up {% endblock %}
+{% block title %} {{ block.super }} - Register {% endblock %}
 {% block content %}
 
-<div >
+<div>
     <form method="POST" action="{% url 'accounts:register' %}">
-        <h1>Sigin up</h1>
+        <h1>Register</h1>
         {% csrf_token %}
-        {{ form.as_p}}
-        <button type="submit">Sigin up</button>
-        <input type="hidden" name="next" value="{{ next }}" />
+        {{ form.as_p }}
+        <button type="submit">Send</button>
   </form>
 </div>
-
 {% endblock content %}

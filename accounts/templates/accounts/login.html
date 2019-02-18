@@ -1,16 +1,24 @@
-{% extends 'accounts/_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% block title %} {{ block.super }} - Sigin in {% endblock %}
+{% block title %} {{ block.super }} - Login {% endblock %}
 {% block content %}
 
 <div>
-    <form method="POST" action="{% url 'accounts:login' %}">
-        <h1>Sigin in</h1>
+	{% if messages %}
+	    <div>
+	        {% for message in messages %}
+	            {{ message }}
+	        {% endfor %}
+	    </div>
+	{% endif %}
+	<form method="POST" action="{% url 'accounts:login' %}">
+        <h1>Login</h1>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Sigin in</button>
-        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit">Send</button>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
   </form>
 </div>
-
 {% endblock content %}

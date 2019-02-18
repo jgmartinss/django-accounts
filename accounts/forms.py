@@ -109,3 +109,5 @@ class LoginUserForm(AuthenticationForm):
             'invalid': _('Please enter your password valid'),
         },
     )
+
+    remember_me = forms.BooleanField(label=_('Remember Me'), required=False)
